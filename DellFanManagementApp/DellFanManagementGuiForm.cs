@@ -152,16 +152,17 @@ namespace DellFanManagement.App
             // Disable some options depending on fan control capability.
             if (!_core.IsAutomaticFanControlDisableSupported)
             {
-                operationModeRadioButtonManual.Enabled = false;
-                //operationModeRadioButtonConsistency.Enabled = false;
+                // Disabled this section as Sakura Edition is meant for the Precision 7720 and this isn't working, This is a temp measure.
+                /* operationModeRadioButtonManual.Enabled = false;
+                operationModeRadioButtonConsistency.Enabled = false;
                 consistencyModeLowerTemperatureThresholdLabel.Enabled = false;
                 consistencyModeUpperTemperatureThresholdLabel.Enabled = false;
                 consistencyModeLowerTemperatureThresholdTextBox.Enabled = false;
-                consistencyModeUpperTemperatureThresholdTextBox.Enabled = false;
+                consistencyModeUpperTemperatureThresholdTextBox.Enabled = false; */
             }
             if (!_core.IsSpecificFanControlSupported)
             {
-                operationModeRadioButtonManual.Enabled = false;
+                // operationModeRadioButtonManual.Enabled = false;
             }
 
             // Apply configuration loaded from registry.
@@ -549,7 +550,7 @@ namespace DellFanManagement.App
                         ThermalSetting? thermalSettingOverride = _configurationStore.GetThermalSettingOverride((Guid)_state.ActivePowerProfile);
                         if (thermalSettingOverride != null)
                         {
-                            _core.RequestThermalSetting((ThermalSetting) thermalSettingOverride);
+                            _core.RequestThermalSetting((ThermalSetting)thermalSettingOverride);
                             Log.Write(string.Format("Thermal setting override: {0}", thermalSettingOverride));
                         }
 
@@ -1153,6 +1154,17 @@ namespace DellFanManagement.App
         private static void ShowDisclaimer()
         {
             MessageBox.Show("Note: While every has been made to make this program safe to use, it does interact with the embedded controller and system BIOS using undocumented methods and may have adverse effects on your system.  Use at your own risk.  If you experience odd behavior, a full system shutdown should restore everything back to the original state.  This program is not created by or affiliated with Dell Inc. or Dell Technologies Inc.", "Dell Fan Management – Disclaimer");
+        }
+
+        private void DellFanManagementGuiForm_Load(object sender, EventArgs e)
+        {
+            //Groupbox labels don't change color in the edior.
+
+        }
+
+        private void operationModeRadioButtonManual_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
